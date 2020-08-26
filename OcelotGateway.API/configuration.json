@@ -1,0 +1,54 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "serviceone-api",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api1/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "SwaggerKey": "ApiOne"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "servicetwo-api",
+          "Port": 3000
+        }
+      ],
+      "UpstreamPathTemplate": "/api2/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "SwaggerKey": "ApiTwo"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "ApiOne",
+      "Config": [
+        {
+          "Name": "ApiOne",
+          "Version": "v1",
+          "Url": "http://serviceone-api:3001/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "ApiTwo",
+      "Config": [
+        {
+          "Name": "ApiTwo",
+          "Version": "v1",
+          "Url": "http://servicetwo-api:3000/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+  }
+}

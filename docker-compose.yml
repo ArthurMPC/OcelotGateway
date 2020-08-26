@@ -1,0 +1,45 @@
+version: "3.4"
+
+services:
+    gateway-api:
+        depends_on: 
+            - serviceone-api
+            - servicetwo-api
+        links:
+            - serviceone-api
+            - servicetwo-api
+        container_name: gateway-api
+        build:
+            context: .
+            dockerfile: ./OcelotGateway.API/Dockerfile
+        expose:
+            - "57869"
+        ports: 
+            - "57869:80"
+        environment:
+            ASPNETCORE_URLS: http://+:80
+            ASPNETCORE_ENVIRONMENT: compose
+    serviceone-api:
+        container_name: serviceone-api
+        hostname: serviceone-api
+        build:
+            context: .
+            dockerfile: ./ServiceOne.API/Dockerfile
+        expose:
+            - "58427"        
+        ports: 
+            - "58427:3001"
+        environment:
+            ASPNETCORE_URLS: http://+:3001
+    servicetwo-api:
+        container_name: servicetwo-api
+        hostname: servicetwo-api
+        build:
+            context: .
+            dockerfile: ./ServiceTwo.API/Dockerfile
+        expose:
+            - "58477"
+        ports: 
+            - "58477:3000"
+        environment:
+            ASPNETCORE_URLS: http://+:3000
